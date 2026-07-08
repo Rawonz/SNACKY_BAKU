@@ -1,0 +1,353 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 3.5%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 7.8%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 7.8%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 45 100% 50%;
+    --primary-foreground: 0 0% 3.5%;
+    --secondary: 25 100% 50%;
+    --secondary-foreground: 0 0% 3.5%;
+    --muted: 0 0% 10%;
+    --muted-foreground: 0 0% 74%;
+    --accent: 45 100% 50%;
+    --accent-foreground: 0 0% 3.5%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 3.5%;
+    --border: 0 0% 16%;
+    --input: 0 0% 10%;
+    --ring: 45 100% 50%;
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: rgba(255, 180, 0, 0.3);
+    color: #ffffff;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #090909;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #2a2a2a;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3a3a3a;
+  }
+}
+
+@layer components {
+  .glass {
+    background: rgba(20, 20, 20, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .glass-strong {
+    background: rgba(20, 20, 20, 0.95);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, #ffb400 0%, #ff6a00 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .bg-noise {
+    position: relative;
+  }
+
+  .bg-noise::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+  }
+
+  .glow-line {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 180, 0, 0.5) 50%,
+      transparent 100%
+    );
+  }
+
+  .btn-primary {
+    @apply relative inline-flex items-center justify-center px-8 py-4 text-sm font-semibold tracking-wide uppercase;
+    @apply bg-gradient-to-r from-primary to-secondary;
+    @apply text-primary-foreground rounded-full;
+    @apply transition-all duration-300 ease-premium;
+    @apply hover:shadow-glow hover:scale-105;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background;
+  }
+
+  .btn-secondary {
+    @apply relative inline-flex items-center justify-center px-8 py-4 text-sm font-semibold tracking-wide uppercase;
+    @apply bg-card border border-border text-foreground rounded-full;
+    @apply transition-all duration-300 ease-premium;
+    @apply hover:bg-muted hover:border-primary;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background;
+  }
+
+  .btn-outline {
+    @apply relative inline-flex items-center justify-center px-8 py-4 text-sm font-semibold tracking-wide uppercase;
+    @apply bg-transparent border-2 border-primary text-primary rounded-full;
+    @apply transition-all duration-300 ease-premium;
+    @apply hover:bg-primary hover:text-primary-foreground;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background;
+  }
+
+  .card-premium {
+    @apply relative overflow-hidden rounded-4xl;
+    @apply bg-gradient-to-br from-card to-[#0a0a0a];
+    @apply border border-border/50;
+    @apply transition-all duration-500 ease-premium;
+    @apply hover:border-primary/30;
+  }
+
+  .card-premium::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse at top left,
+      rgba(255, 180, 0, 0.05) 0%,
+      transparent 50%
+    );
+    pointer-events: none;
+  }
+
+  .input-premium {
+    @apply w-full px-4 py-3 bg-input rounded-xl;
+    @apply border border-border text-foreground;
+    @apply placeholder:text-muted-foreground;
+    @apply transition-all duration-300;
+    @apply focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary;
+  }
+
+  .section-padding {
+    @apply py-20 md:py-32 lg:py-40;
+  }
+
+  .container-padding {
+    @apply px-4 md:px-8 lg:px-16;
+  }
+
+  .heading-xl {
+    @apply text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight;
+  }
+
+  .heading-lg {
+    @apply text-4xl md:text-6xl font-bold tracking-tight;
+  }
+
+  .heading-md {
+    @apply text-3xl md:text-4xl font-bold tracking-tight;
+  }
+
+  .heading-sm {
+    @apply text-xl md:text-2xl font-semibold;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .mask-gradient {
+    mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      black 10%,
+      black 90%,
+      transparent
+    );
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 180, 0, 0) 0%,
+      rgba(255, 180, 0, 0.1) 50%,
+      rgba(255, 180, 0, 0) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+}
+
+@layer utilities {
+  .text-shadow-glow {
+    text-shadow: 0 0 40px rgba(255, 180, 0, 0.5);
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+
+  .translate-z-0 {
+    transform: translateZ(0);
+  }
+
+  .will-change-transform {
+    will-change: transform;
+  }
+
+  .touch-none {
+    touch-action: none;
+  }
+
+  .snap-x {
+    scroll-snap-type: x mandatory;
+  }
+
+  .snap-mandatory {
+    scroll-snap-type: both mandatory;
+  }
+
+  .snap-center {
+    scroll-snap-align: center;
+  }
+
+  .snap-start {
+    scroll-snap-align: start;
+  }
+
+  .gradient-border {
+    position: relative;
+  }
+
+  .gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, #ffb400, #ff6a00);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
+    pointer-events: none;
+  }
+
+  .hover-lift {
+    transition: transform 0.3s ease-premium;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-4px);
+  }
+
+  .line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .aspect-product {
+    aspect-ratio: 4/3;
+  }
+
+  .aspect-hero {
+    aspect-ratio: 16/9;
+  }
+}
+
+@layer utilities {
+  @media (max-width: 767px) {
+    .mobile-bottom-nav {
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .custom-cursor,
+    .custom-cursor * {
+      cursor: none !important;
+    }
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
